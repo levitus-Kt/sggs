@@ -1,4 +1,0 @@
-python3.12
-mpg123==1.26.4
-gedit
-nano

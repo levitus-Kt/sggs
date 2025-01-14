@@ -1,0 +1,11 @@
+[Unit]
+Description=Program School Bell
+
+[Service]
+Type=simple
+Restart=always	#on-failure
+WorkingDirectory=~/sggs
+ExecStart=/usr/bin/python3 "~/sggs/ringer.py"
+
+[Install]
+WantedBy=multi-user.target

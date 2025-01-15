@@ -8,8 +8,10 @@ DISCLAIMER: Все действия в настоящей инструкции �
 Файл ringer.service нужно закинуть в папку /etc/systemd/system/ (sudo)
 
 Прописать в терминале: 
-`sudo systemctl enable ringer
-sudo systemctl start ringer`
+
+`sudo systemctl enable ringer`
+
+`sudo systemctl start ringer`
 
 В файле "requirements" хранятся названия необходимых библиотек
 
@@ -36,9 +38,13 @@ sudo systemctl start ringer`
 Если количество уроков изменится (станет отличным от 7), то помимо редактирования расписания, также необходимо в файле ringer.py найти 127 строку, и:
 
 В случае добавления урока: ПОСЛЕ неё добавить строки:
-	 `schedule.every().day.at(lesson[0]).do(audio)
-		schedule.every().day.at(tb[0]).do(audio)
-		schedule.every().day.at(pre[0]).do(audio)`
+
+	schedule.every().day.at(lesson[0]).do(audio)
+
+	schedule.every().day.at(tb[0]).do(audio)
+	
+ 	schedule.every().day.at(pre[0]).do(audio)
+  
 где 0 - (номер урока минус 1) (н-р для 7 урока: 7-1=6)
 	
 В случае уменьшения количества уроков: удалить строки с номером убранного из расписания урока минус 1
@@ -46,9 +52,11 @@ sudo systemctl start ringer`
 Удалять начиная С КОНЦА!
 
 (н-р, если было 7 уроков, стало 5: удалить строки
- 		`schedule.every().day.at(lesson[6]).do(audio)
-		schedule.every().day.at(tb[6]).do(audio)
-		schedule.every().day.at(pre[6]).do(audio)`
+```
+schedule.every().day.at(lesson[6]).do(audio)
+schedule.every().day.at(tb[6]).do(audio)
+schedule.every().day.at(pre[6]).do(audio)
+```
 также и для `lesson[5]`, `tb[5]`, `pre[5]` (так как убираем уроки 7 и 6, 7-1=6, 6-1=5))
 
 После этого перезагрузить устройство
@@ -76,8 +84,10 @@ Install python3.11:
 
 Спуститься к разделу Add the repository, раскрыть пункт Technical details about this PPA, выбрать подходящую версию Ubuntu (обычно это Jammy 22.04), скопировать репозитории и вставить в конец файла /etc/apt/sources.list
 
-Скопировать Signing key (То, что после слеша) и в терминале выполнить 
+Скопировать Signing key (То, что после слеша) и в терминале выполнить:
+
 `sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys скопированный_код`
+
 `sudo apt update`
 
 2 вариант - с официального сайта:
@@ -95,10 +105,12 @@ Install python3.11:
 3) systemctl перезапускается слишком часто или не может запуститься (ошибка Failed: exit-code)
     
 Для 1 пункта: в конце файла /etc/sudoers (sudo visudo /etc/sudoers) прописать:
-`<user>     ALL=(ALL)       NOPASSWD: /home/<user>/zvonki/ringer.py
+```
+<user>     ALL=(ALL)       NOPASSWD: /home/<user>/zvonki/ringer.py
 <user>     ALL=(ALL)       NOPASSWD: /bin/systemctl
 <user>     ALL=(ALL)       NOPASSWD: /usr/bin/service
-<user>     ALL=(ALL)       NOPASSWD: /home/<user>/zvonki/sggs/radio/radio-off.sh`
+<user>     ALL=(ALL)       NOPASSWD: /home/<user>/zvonki/sggs/radio/radio-off.sh
+```
 
 Вместо <user> подставить имя пользователя на устройстве
 
@@ -121,7 +133,9 @@ https://askubuntu.com/questions/1403759/system-cannot-find-alternative-python3-v
 
 Ошибка ModuleNotFoundError: No module named 'distutils.util'
 https://stackoverflow.com/questions/69919970/no-module-named-distutils-but-distutils-installed
-`sudo apt-get install python3.9-distutils`
+```
+sudo apt-get install python3.9-distutils
+```
 
 Ошибка со звуковыми библиотеками, невозможностью открыть gl, al модули и т.д.
 

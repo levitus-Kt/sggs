@@ -22,8 +22,7 @@ while 1:
 			case 4: os.system("nano ~/sggs/bells_time.txt")
 			case 5: os.system("nano ~/sggs/quiet.txt")
 			case 6: os.system("bash ~/sggs/lesson.sh")
-			case 7: 
-				if input("Are you sure?") == "y": shutil.rmtree(r"~/sggs/logs"); os.makedirs(r"~/sggs/logs")
+			case 7: if input("Are you sure?") == "y": shutil.rmtree(r"~/sggs/logs"); os.makedirs(r"~/sggs/logs")
 			case 8: break
 			case _: print("Такой операции нет!")
 	except ValueError:

@@ -104,13 +104,15 @@ Install python3.11:
     
 Для 1 пункта: в конце файла /etc/sudoers (sudo visudo /etc/sudoers) прописать:
 ```
-<user>     ALL=(ALL)       NOPASSWD: /home/<user>/sggs/ringer.py
+<user>     ALL=(ALL)       NOPASSWD: /home/user/sggs/ringer.py
 <user>     ALL=(ALL)       NOPASSWD: /bin/systemctl
 <user>     ALL=(ALL)       NOPASSWD: /usr/bin/service
-<user>     ALL=(ALL)       NOPASSWD: /home/<user>/sggs/radio/radio-off.sh
+<user>     ALL=(ALL)       NOPASSWD: /home/user/sggs/radio/radio-off.sh
 ```
 
-Вместо /home/<user> подставить путь до папки приложения (sggs) на устройстве
+Вместо /home/user подставить путь до папки приложения (sggs) на устройстве
+
+Вместо <user> подставить имя пользователя, у которого лежит папка с программой
 
 Для 2 пункта: изменить строку в коде, ответственную за перезапуск демона systemctl, чтобы не перезапускалось так быстро
 

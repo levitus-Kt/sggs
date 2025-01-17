@@ -147,25 +147,25 @@ sudo apt-get install python3.9-distutils
 Если в системе стоит звуковой сервер PulseAudio, чтобы звук играл из-под sudo нужно в файле /etc/asound.conf прописать:
 ```
 pcm.pulse {
-	type pulse
+  type pulse
 }
 
 ctl.pulse {
-	type pulse
+  type pulse
 }
 
 pcm.!default {
-	type pulse
+  type pulse
 }
 ctl.!default {
-	type pulse
+  type pulse
 }
 ```
 
 Если звуковой сервер PipeWire, то в том же файле (/etc/asound.conf) заменяем все, что внутри на:
 ```
 ctl.!default {
-	type hw
+  type hw
   card PCH
 }
 

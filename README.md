@@ -165,7 +165,7 @@ ctl.!default {
 Если звуковой сервер PipeWire, то в том же файле (/etc/asound.conf) заменяем все, что внутри на:
 ```
 ctl.!default {
-  type hw
+	type hw
   card PCH
 }
 

@@ -1,0 +1,17 @@
+{% extends "ringer/base.html" %}
+
+{% block terminal %}
+<form action="" method="post">
+    {% csrf_token %}
+    {{ label }} <br>
+    <input type="submit" value="Да" name="yes-but">
+    <input type="submit" value="Нет" name="no-but">
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+</form>
+{% endblock %}
+

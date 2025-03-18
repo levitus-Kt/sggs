@@ -1,5 +1,8 @@
 import os
 import shutil
+import getpass
+
+user = "/home/" + getpass.getuser()
 
 
 while 1:
@@ -18,11 +21,13 @@ while 1:
 		match inp:
 			case 1: os.system("sudo systemctl start ringer"); print("Звонки включены!")
 			case 2: os.system("sudo systemctl stop ringer"); print("Звонки выключены!")
-			case 3: os.system("python ~/sggs/change.py"); os.system("sudo systemctl restart ringer")
-			case 4: os.system("nano ~/sggs/bells_time.txt")
-			case 5: os.system("nano ~/sggs/quiet.txt")
-			case 6: os.system("bash ~/sggs/lesson.sh")
-			case 7: if input("Are you sure?") == "y": shutil.rmtree(r"~/sggs/logs"); os.makedirs(r"~/sggs/logs")
+			case 3: os.system("python sggs/ringer/appchange.py"); os.system("sudo systemctl restart ringer")
+			case 4: os.system("sudo nano sggs/ringer/app/bells_time.txt")
+			case 5: os.system("nano sggs/ringer/app/quiet.txt")
+			case 6: os.system("sh sggs/ringer/app/lesson.sh")
+			case 7: 
+				if input("Are you sure?") == "y": shutil.rmtree(f"{user}/sggs/ringer/logs"); os.makedirs(f"{user}/sggs/ringer/logs")
+				else: print("Введите y (англ. строчная Y) для согласия")
 			case 8: break
 			case _: print("Такой операции нет!")
 	except ValueError:

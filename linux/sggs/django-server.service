@@ -5,7 +5,7 @@ Description=Program School Bell
 Type=simple
 Restart=always	#on-failure
 WorkingDirectory=/home/ctc
-ExecStart=/usr/bin/python3 "sggs/ringer/app/ringer.py"
+ExecStart=/usr/bin/python3 "sggs/manage.py" runserver 172.23.56.50:8000
 
 [Install]
 WantedBy=multi-user.target

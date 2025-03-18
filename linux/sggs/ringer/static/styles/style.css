@@ -1,0 +1,88 @@
+html {
+    /* top right bottom left */
+    margin: 10px 0px 0 15px;
+}
+
+footer {
+    text-align: bottom;
+}
+
+li:active:not(.title) {
+    background-color: rgba(86, 159, 243, 0.719) ;
+}
+
+h1 {
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.home {
+    position: absolute;
+    right: 1%;
+    top: 10px;
+}
+
+a:not(.a-foot), a:hover {
+    text-decoration: none !important;
+    color: black !important;
+}
+
+div.row {
+    /* display: block; */
+    clear: both;
+    width: 100%;
+}
+
+.cell {
+    /* display: table-cell; */
+    vertical-align: top;
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+    margin-left: 0;
+    padding-left: 20px;
+    width: 350px;
+}
+
+li:not(.title) {
+    margin-left: 15px;
+}
+
+iframe {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    width: 100%;
+}
+
+.frame {
+    /* float: right; */
+    width: 70%;
+    margin-left: 20px;
+}
+
+textarea {
+    height: 300px;
+    width: 600px;
+    resize: none !important;
+}
+
+
+textarea::-webkit-resizer {
+    display: none;
+}
+
+.errorlist {
+    color: rgb(28, 85, 170);
+    font-weight: bold;
+}
+
+.error {
+    color: rgb(28, 85, 170);
+    font-weight: 300;
+}
+
+.add-but {
+    margin-bottom: 10px;
+}

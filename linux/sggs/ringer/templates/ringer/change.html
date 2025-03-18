@@ -1,0 +1,22 @@
+{% extends "ringer/base.html" %}
+
+{% block terminal %}
+{% if form.is_multipart %}
+<form action="" method="post" enctype="multipart/form-data">
+{% else %}
+<form action="" method="post">
+{% endif %}
+    {% csrf_token %}
+    {{ label }} <br> <br>
+    {{ form.as_p }}
+    <input type="submit" value="Применить" name="yes-but">
+    <!-- <input type="submit" value="Нет" name="no-but"> -->
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    
+</form>
+{% endblock %}
+

@@ -6,12 +6,16 @@ import shutil
 import sys
 import wget
 import logging
+import getpass
+
+
+user = "/home/" + getpass.getuser()
 
 logger2 = logging.getLogger(__name__)    #Используем имя модуля, чтобы знать откуда вывелся лог
 logger2.setLevel(logging.INFO)    #минимальный уровень, на котором нужно начинать логирование (по умолчанию Warning)
 
 #Настройка обработчика и форматировщика в соответствии с нашими нуждами
-handler2 = logging.FileHandler(filename=f"~/sggs/logs/{__name__}.log", mode='a')
+handler2 = logging.FileHandler(filename=f"sggs/ringer/logs/{__name__}.log", mode='a')
 formatter2 = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
 
 #Добавление форматировщика к обработчику
@@ -32,7 +36,7 @@ def schedule_time(lines):
 
 def raspisanie():
 	global lines
-	inputFile = open(r"~/sggs/bells_time.txt", "r")  #w - перезаписать, a -  добавить, r - прочитать (default), x - создать эксклюзивный файл
+	inputFile = open(r"sggs/ringer/app/bells_time.txt", "r")  #w - перезаписать, a -  добавить, r - прочитать (default), x - создать эксклюзивный файл
 	lines = inputFile.read().splitlines()
 	inputFile.close()
 	lesson, tb, pre = schedule_time(lines)
@@ -42,7 +46,7 @@ def kanikuly():
 	global quiet
 	quiet = []
 	
-	inputFile = open(r"~/sggs/quiet.txt", "r")
+	inputFile = open(r"sggs/ringer/app/quiet.txt", "r")
 	weeks = inputFile.read().splitlines()
 	inputFile.close()
 
@@ -62,20 +66,19 @@ def kanikuly():
 	return quiet
 	
 def clearLogs():
-	shutil.rmtree(r"~/sggs/logs")
-	os.mkdir(r"~/sggs/logs")
-	#Префикс r заставляет Python воспринимать содержимое строки как есть, без обработки специальных символов
+	shutil.rmtree(f"{user}/sggs/ringer/logs")
+	os.mkdir(f"{user}/sggs/ringer/logs")
 	
 def update():
 	url = "http://shkarenkov.ru/1212/bells_time.txt"
 	try:
-		os.system("mv ~/sggs/bells_time.txt ~/sggs/bells_time1.txt")
-		wget.download(url, out="~/sggs/")
+		os.system("mv sggs/ringer/app/bells_time.txt sggs/ringer/app/bells_time1.txt")
+		wget.download(url, out=f"{user}sggs/ringer/app/")
 		time.sleep(2)
 		os.system("sudo systemctl restart ringer")
 	except:
-		os.system("mv ~/sggs/bells_time1.txt ~/sggs/bells_time.txt")
+		os.system("mv sggs/ringer/app/bells_time1.txt sggs/ringer/app/bells_time.txt")
 	finally:
-		if os.path.exists(r"~/sggs/bells_time1.txt"): os.remove(r"~/sggs/bells_time1.txt")
+		if os.path.exists(f"sggs/ringer/app/bells_time1.txt"): os.remove(f"sggs/ringer/app/bells_time1.txt")
 	#вернет True и для файла и для директории. os.path.isfile проверит именно на наличие файла
 

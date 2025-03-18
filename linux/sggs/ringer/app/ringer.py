@@ -7,15 +7,16 @@ import os
 import change
 import config
 import logging
+import getpass
 
 
 logger = logging.getLogger(__name__)    #Используем имя модуля, чтобы знать откуда вывелся лог
 logger.setLevel(logging.INFO)    #минимальный уровень, на котором нужно начинать логирование (по умолчанию Warning)
 
-logging.basicConfig(level=logging.INFO, filename=f"~/sggs/logs/{__name__}.log", filemode="a",format="%(asctime)s %(levelname)s %(message)s \n")
+logging.basicConfig(level=logging.INFO, filename=f"sggs/ringer/logs/{__name__}.log", filemode="a",format="%(asctime)s %(levelname)s %(message)s \n")
 
 #Настройка обработчика и форматировщика в соответствии с нашими нуждами
-handler = logging.FileHandler(filename=f"~/sggs/logs/{__name__}.log", mode='a') 
+handler = logging.FileHandler(filename=f"sggs/ringer/logs/{__name__}.log", mode='a') 
 formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
 
 
@@ -25,7 +26,7 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 
 
-
+user = "/home/" + getpass.getuser()
 
 lesson, tb, pre = config.raspisanie()
 
@@ -80,9 +81,9 @@ def audio():
     #Выбор аудио
     match weekday:
         case "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday":                #Не играть по выходным
-            if true_time[0] in lesson: os.system("sh ~/sggs/lesson.sh")
-            elif true_time[0] in tb: os.system("sh ~/sggs/timebreak.sh"); time.sleep(5.5); os.system("sh ~/sggs/radio/radio-on.sh")
-            elif true_time[0] in pre: os.system("sh ~/sggs/radio/radio-off.sh"); time.sleep(5.5); os.system("sh ~/sggs/pre.sh")
+            if true_time[0] in lesson: os.system("sh sggs/ringer/app/lesson.sh")
+            elif true_time[0] in tb: os.system("sh sggs/ringer/app/timebreak.sh"); time.sleep(4.5); os.system("sh sggs/ringer/radio/radio-on.sh")
+            elif true_time[0] in pre: os.system("sh sggs/ringer/radio/radio-off.sh"); time.sleep(4.5); os.system("sh sggs/ringer/app/pre.sh")
         case _:
             print("Выходные!")
             pass
@@ -91,13 +92,13 @@ def audio():
 
 
 def sets():
-	if datetime.datetime.now().strftime("%d.%m") == "31.12": config.clearLogs   #Очистка логов
-	logging.info(f"-----------------")
-	logging.info(f"Today is: {time.ctime()}")
-	change.prazdniki()                                              #Смена звонков на праздники
-	day = str(time.localtime()).split(", ")[7].split("=")           #Автоматическая смена на Новый Год
-	if (int(366 - int(day[1]))) <= 21:
-	    ny()
+    if datetime.datetime.now().strftime("%d.%m") == "31.12": config.clearLogs   #Очистка логов
+    logging.info(f"-----------------")
+    logging.info(f"Today is: {time.ctime()}")
+    change.prazdniki()                                              #Смена звонков на праздники
+    day = str(time.localtime()).split(", ")[7].split("=")           #Автоматическая смена на Новый Год
+    if (int(366 - int(day[1]))) <= 21:
+        ny()
     logging.info(f"Function ringer.sets")
 
 
@@ -106,33 +107,34 @@ def sch():
     logging.info(f"Function raspisanie {__name__}")
     
     def stop():
-        os.system("bash ~/sggs/radio/radio-off.sh")
+        os.system("bash sggs/ringer/radio/radio-off.sh")
     
     
     schedule.every().day.at("15:30:00").do(stop)
     
+    schedule.every().day.at(pre[0]).do(audio)
     schedule.every().day.at(lesson[0]).do(audio)
     schedule.every().day.at(tb[0]).do(audio)
+    schedule.every().day.at(pre[1]).do(audio)
     schedule.every().day.at(lesson[1]).do(audio)
     schedule.every().day.at(tb[1]).do(audio)
+    schedule.every().day.at(pre[2]).do(audio)
     schedule.every().day.at(lesson[2]).do(audio)
     schedule.every().day.at(tb[2]).do(audio)
+    schedule.every().day.at(pre[3]).do(audio)
     schedule.every().day.at(lesson[3]).do(audio)
     schedule.every().day.at(tb[3]).do(audio)
+    schedule.every().day.at(pre[4]).do(audio)
     schedule.every().day.at(lesson[4]).do(audio)
     schedule.every().day.at(tb[4]).do(audio)
+    schedule.every().day.at(pre[5]).do(audio)
     schedule.every().day.at(lesson[5]).do(audio)
     schedule.every().day.at(tb[5]).do(audio)
+    schedule.every().day.at(pre[6]).do(audio)
     schedule.every().day.at(lesson[6]).do(audio)
     schedule.every().day.at(tb[6]).do(audio)
+    #Higlighter
     
-    schedule.every().day.at(pre[0]).do(audio)
-    schedule.every().day.at(pre[1]).do(audio)
-    schedule.every().day.at(pre[2]).do(audio)
-    schedule.every().day.at(pre[3]).do(audio)
-    schedule.every().day.at(pre[4]).do(audio)
-    schedule.every().day.at(pre[5]).do(audio)
-    schedule.every().day.at(pre[6]).do(audio)
     
     schedule.every().day.at("08:00").do(sets)		#Обновление мелодии и логов
     schedule.every(2).hours.do(config.update)		#Обновление расписания

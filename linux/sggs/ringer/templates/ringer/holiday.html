@@ -1,0 +1,20 @@
+{% extends "ringer/base.html" %}
+
+{% block terminal %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <label>Даты в формате dd.mm через пробел:</label> <br>
+    <!-- <textarea type="text" name="lesson" placeholder="Введите даты"> </textarea> <br> -->
+    {{ form.as_p }}
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <input type="submit" value="Добавить" name="add-but" class="add-but">
+    <input type="submit" value="Убрать" name="del-but" class="del-but">
+    <p>В добавленные даты звонки играть не будут</p>
+    <p>Внимание: даты вида d.m (9.3, 3.7, 1.1) не будут добавлены в реестр</p>
+</form>
+{% endblock %}
+

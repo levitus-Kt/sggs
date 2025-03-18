@@ -1,0 +1,15 @@
+{% extends "ringer/base.html" %}
+
+{% block terminal %}
+<p>Если вы перешли на эту страницу, значит, у вас не работает терминал (правая половина окна). Установите shellinabox</p>
+<p>Нажимаем на клавиатуре сочетание CTRL + ALT + T (терминал) и вставляем туда команду: sudo apt install shellinabox</p>
+<p>После того, как установилось, вставляете: sudo nano /etc/default/shellinabox</p>
+<p>Ищете строку SHELLINABOX_PORT, после равно пишете: 4222</p>
+<p>Ищете строку SHELLINABOX_ARGS, в кавычках пишете: "--no-beep --disable-ssl -s /:SSH:172.23.56.50"</p>
+<p>Должно получиться так: SHELLINABOX_ARGS="--no-beep --disable-ssl -s /:SSH:172.23.56.50"</p>
+<p>Нажимаем на клавиатуре сочетание CTRL + S, CTRL + X</p>
+<p>Вставляем в терминал: </p>
+<p>sudo systemctl restart shellinabox</p>
+<br>
+<p>Возвращаетесь на нужную страницу, в окне вас попросят логин и пароль</p>
+{% endblock %}

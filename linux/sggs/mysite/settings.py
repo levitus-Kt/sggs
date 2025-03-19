@@ -120,10 +120,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'ringer/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "ringer" / "static",
-        
-]
+#STATICFILES_DIRS = [
+#    BASE_DIR / "ringer" / "static",
+#        
+#]
+STATIC_ROOT = BASE_DIR / "ringer" / "static"
+
+#MEDIA_URL = 'ringer/static/'
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'ringer/media)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

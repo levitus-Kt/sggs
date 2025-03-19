@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.views.generic import RedirectView
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
+from django.templatetags.static import static
 #from django.conf.urls.static import static
+from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +30,11 @@ urlpatterns = [
     # с корневого URL, на URL приложения
     path('', RedirectView.as_view(url='/ringer/', permanent=True)),
     path('empty', RedirectView.as_view(url='', permanent=True)),
+]
+
+urlpatterns += [
+    re_path(r'^ringer/static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    re_path(r'^ringer/media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
 ]
 
 

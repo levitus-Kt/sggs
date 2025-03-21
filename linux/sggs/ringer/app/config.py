@@ -78,6 +78,8 @@ def update():
 		os.system("sudo systemctl restart ringer")
 	except:
 		os.system("mv sggs/ringer/app/bells_time1.txt sggs/ringer/app/bells_time.txt")
+		logging.error(f"Function config.update")
+		logging.error(f"Не получилось скачать расписание с сервера. Использую локальный файл")
 	finally:
 		if os.path.exists(f"sggs/ringer/app/bells_time1.txt"): os.remove(f"sggs/ringer/app/bells_time1.txt")
 	#вернет True и для файла и для директории. os.path.isfile проверит именно на наличие файла
